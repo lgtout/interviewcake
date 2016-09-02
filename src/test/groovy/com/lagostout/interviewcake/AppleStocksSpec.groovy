@@ -26,7 +26,7 @@ class AppleStocksSpec extends Specification {
         AppleStocks.findBestProfit(data) == findBestProfitWithBruteForce(data)
 
         where:
-        data << createTestCases(100, 4, Range.between(1, 5))
+        data << createTestCases(1000, 10, Range.between(1, 10))
 
     }
 
