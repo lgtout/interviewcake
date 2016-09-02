@@ -9,17 +9,15 @@ class AppleStocks {
         int possibleBuyTime = bestBuyTime - 1
         int bestProfit = prices[bestSellTime] - prices[bestBuyTime]
         while (possibleBuyTime >= 0) {
-            if (prices[bestSellTime] - prices[possibleBuyTime] >= bestProfit) {
-                bestBuyTime = possibleBuyTime
-                bestProfit = prices[bestSellTime] - prices[bestBuyTime]
-                int possibleSellTime = bestSellTime - 1
-                while (possibleSellTime > bestBuyTime) {
-                    if (prices[possibleSellTime] - prices[bestBuyTime] > bestProfit) {
-                        bestSellTime = possibleSellTime
-                        bestProfit = prices[bestSellTime] - prices[bestBuyTime]
-                    }
-                    --possibleSellTime
+            int profitIfImprovingBuyTime = prices[bestSellTime] - prices[possibleBuyTime]
+            int profitIfImprovingBuyAndSellTimes = prices[bestBuyTime] - prices[possibleBuyTime]
+            int possibleProfit = Math.max(profitIfImprovingBuyTime, profitIfImprovingBuyAndSellTimes)
+            if (possibleProfit > bestProfit) {
+                if (profitIfImprovingBuyAndSellTimes > profitIfImprovingBuyTime) {
+                    bestSellTime = bestBuyTime
                 }
+                bestBuyTime = possibleBuyTime
+                bestProfit = possibleProfit
             }
             --possibleBuyTime
         }

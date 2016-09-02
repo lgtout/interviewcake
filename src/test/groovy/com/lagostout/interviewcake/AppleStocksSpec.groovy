@@ -14,8 +14,6 @@ class AppleStocksSpec extends Specification {
 
         where:
         data << [
-//                [[3, 3, 1], [0, 1, 0]],
-//                [[1, 1, 3], [1, 2, 2]]
                 [[8, 6, 1], [8, 6, -2]]
         ]
 
@@ -28,7 +26,7 @@ class AppleStocksSpec extends Specification {
         AppleStocks.findBestProfit(data) == findBestProfitWithBruteForce(data)
 
         where:
-        data << createTestCases(10, 3, Range.between(1, 10))
+        data << createTestCases(100, 4, Range.between(1, 5))
 
     }
 
