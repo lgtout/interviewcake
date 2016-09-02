@@ -14,7 +14,7 @@ class AppleStocksSpec extends Specification {
 
         where:
         data << [
-                [[8, 6, 1], [8, 6, -2]]
+                [[8, 6, 1], -2]
         ]
 
     }
@@ -26,7 +26,7 @@ class AppleStocksSpec extends Specification {
         AppleStocks.findBestProfit(data) == findBestProfitWithBruteForce(data)
 
         where:
-        data << createTestCases(1000, 10, Range.between(1, 10))
+        data << createTestCases(100, 10, Range.between(1, 10))
 
     }
 
@@ -42,7 +42,7 @@ class AppleStocksSpec extends Specification {
             durationMinutes.times {
                 prices[it] = random.nextInt(priceRange.minimum, priceRange.maximum)
             }
-            cases.add  prices
+            cases.add prices
         }
         cases
     }
@@ -50,17 +50,15 @@ class AppleStocksSpec extends Specification {
     def static private findBestProfitWithBruteForce(int[] data) {
         int bestProfit = Integer.MIN_VALUE
         int profit
-        def result = []
         for (int i = 0; i < data.length - 1; ++i) {
             for (int j = i+1; j < data.length; ++j) {
                 profit = data[j] - data[i]
                 if (profit >= bestProfit) {
                     bestProfit = profit
-                    result = [data[i], data[j], bestProfit]
                 }
             }
         }
-        result
+        bestProfit
     }
 
 }
