@@ -4,16 +4,17 @@ class ProductOfOtherNumbers {
 
     static int[] calculateProducts(int[] numbers) {
         def products = new int[numbers.length]
-        products[0] = 1
+//        if (numbers.length == 0) return []
         def lastIndex = numbers.length - 1
-        1.upto(lastIndex) {
-            products[it] = numbers[it-1] * products[it-1]
+        int product = 1
+        0.upto(lastIndex) {
+            products[it] = product
+            product = numbers[it] * product
         }
-        def reverseProduct = 1
-        def secondToLastIndex = lastIndex - 1
-        (secondToLastIndex).downto(0) {
-            reverseProduct *= numbers[it+1]
-            products[it] *= reverseProduct
+        product = 1
+        (lastIndex).downto(0) {
+            products[it] = product * products[it]
+            product *= numbers[it]
         }
         products
     }

@@ -15,13 +15,13 @@ class ProductOfOtherNumbersSpec extends Specification {
                 calculateProductWithBruteForce(data as int[])
 
         where:
-//        data << generateTestCases(10, Range.between(3,10), Range.between(1,100))
-        data << generateTestCases()
+        data << generateTestCases(10, Range.between(0,2), Range.between(1,10))
+//        data << generateTestCases()
 
     }
 
     def generateTestCases(testCaseCount = 100,
-                          Range<Integer> numberCountRange = Range.between(2, 100),
+                          Range<Integer> numberCountRange = Range.between(0, 100),
                           Range<Integer> numberRange = Range.between(-100, 100)) {
         def random = new RandomDataGenerator()
         random.reSeed(1)
@@ -42,12 +42,15 @@ class ProductOfOtherNumbersSpec extends Specification {
     }
 
     int[] calculateProductWithBruteForce(int[] numbers) {
-        def indices = 0..numbers.length-1
         def products = []
+        if (numbers.length == 0) return []
+        if (numbers.length == 1) return [1]
+        def indices = 0..numbers.length-1
         indices.each {
             def filteredIndices = indices.collect()
             filteredIndices.remove(it)
-            int product = filteredIndices.inject (1) {
+            println filteredIndices
+            def product = filteredIndices.inject (1) {
                 acc, val ->
                     acc * numbers[val] }
             products.add product
