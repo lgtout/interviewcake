@@ -9,26 +9,38 @@ import static org.apache.commons.lang3.Range.between
 class HighestProductOf3Spec extends Specification {
 
     @Unroll("#data")
+    def "calculates highest product of 3 from non-random input" (int[] data) {
+
+        expect:
+        HighestProductOf3.product(data) == bruteForceHighestProduct(data)
+
+        where:
+        data << [
+                [10, -10, 2, 8, 5, -5, 2, -6, 1],
+//                 [5, 1, 6]
+        ]
+
+    }
+
+    @Unroll("#data")
     def "calculates highest product of 3 from random input" (int[] data) {
 
         expect:
         HighestProductOf3.product(data) == bruteForceHighestProduct(data)
 
         where:
-        data << createRandomTestCases(between(4,4), between(-10, 10), between(3, 10))
+        data << createRandomTestCases(100, between(-100, 100))
 
     }
 
     def createRandomTestCases(
-            Range<Integer> testCaseCountRange = between(1,100),
+            int testCaseCount = 1000,
             Range<Integer> numberRange = between(-100, 100),
             Range<Integer> numberCountRange = between(3, 100)
     ) {
         def testCases = []
         RandomDataGenerator random = new RandomDataGenerator()
         random.reSeed(1)
-        def testCaseCount = random.nextInt(
-                testCaseCountRange.minimum, testCaseCountRange.maximum)
         testCaseCount.times {
             def numberCount = random.nextInt(
                     numberCountRange.minimum, numberCountRange.maximum)
