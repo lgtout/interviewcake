@@ -16,8 +16,10 @@ class HighestProductOf3Spec extends Specification {
 
         where:
         data << [
+                [-2, -8, 8, -5],
+                [8, 7, -6, -10],
                 [10, -10, 2, 8, 5, -5, 2, -6, 1],
-//                 [5, 1, 6]
+                [5, 1, 6]
         ]
 
     }
@@ -29,24 +31,26 @@ class HighestProductOf3Spec extends Specification {
         HighestProductOf3.product(data) == bruteForceHighestProduct(data)
 
         where:
-        data << createRandomTestCases(100, between(-100, 100))
+        data << createRandomTestCases(1000, between(-10, 10), between(4, 4))
 
     }
 
     def createRandomTestCases(
             int testCaseCount = 1000,
             Range<Integer> numberRange = between(-100, 100),
-            Range<Integer> numberCountRange = between(3, 100)
-    ) {
+            Range<Integer> numberCountRange = between(3, 100)) {
         def testCases = []
         RandomDataGenerator random = new RandomDataGenerator()
         random.reSeed(1)
         testCaseCount.times {
             def numberCount = random.nextInt(
-                    numberCountRange.minimum, numberCountRange.maximum)
+                    numberCountRange.minimum,
+                    numberCountRange.maximum)
             def numbers = []
             numberCount.times {
-                numbers.add random.nextInt(numberRange.minimum, numberRange.maximum)
+                numbers.add random.nextInt(
+                        numberRange.minimum,
+                        numberRange.maximum)
             }
             testCases.add numbers
         }

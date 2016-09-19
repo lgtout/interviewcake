@@ -5,6 +5,48 @@ package com.lagostout.interviewcake
 class HighestProductOf3 {
 
     static int product(int[] numbers) {
+        int product = numbers[0] * numbers[1] * numbers[2]
+        int lowestNumber = Math.min(numbers[0], numbers[1])
+        int lowestProductOf2 = numbers[0] * numbers[1]
+        int highestNumber = Math.max(numbers[0], numbers[1])
+        int highestProductOf2 = numbers[0] * numbers[1]
+        println ""
+        println "highestNumber $highestNumber"
+        println "highestProductOf2 $highestProductOf2"
+        println "lowestNumber $lowestNumber"
+        println "lowestProductOf2 $lowestProductOf2"
+        println ""
+        for (int i = 2; i < numbers.length; ++i) {
+            def number = numbers[i]
+            println "number $number"
+            println "product $product"
+            product = Math.max(Math.max(product, number * highestProductOf2),
+                    number * lowestProductOf2)
+            println "product $product"
+            if (number * highestNumber > highestProductOf2) {
+                highestProductOf2 = number * highestNumber
+            }
+            if (number * lowestNumber > highestProductOf2) {
+                highestProductOf2 = number * lowestNumber
+            }
+            if (number * highestNumber < lowestProductOf2) {
+                lowestProductOf2 = number * highestNumber
+            }
+            if (number * lowestNumber < lowestProductOf2) {
+                lowestProductOf2 = number * lowestNumber
+            }
+            highestNumber = Math.max(highestNumber, number)
+            lowestNumber = Math.min(lowestNumber, number)
+            println "highestNumber $highestNumber"
+            println "highestProductOf2 $highestProductOf2"
+            println "lowestNumber $lowestNumber"
+            println "lowestProductOf2 $lowestProductOf2"
+            println ""
+        }
+        product
+    }
+
+    static int product2(int[] numbers) {
         def product
         int[] range = [numbers[0], numbers[1], numbers[2]]
         List<Integer> highest3Positive = range.findAll { it >= 0 }
