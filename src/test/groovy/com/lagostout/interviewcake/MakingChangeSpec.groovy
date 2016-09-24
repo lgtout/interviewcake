@@ -13,12 +13,12 @@ class MakingChangeSpec extends Specification {
     def 'makes change - random cases'(int amount, int[] denominations) {
 
         expect:
-        MakingChange.makeChange(amount, denominations) ==
+        MakingChange.countWays(amount, denominations) ==
                 bruteForceMakeChange(amount, denominations)
 
         where:
-        [amount, denominations] <<
-                makeRandomTestCases(2, between(4,4), between(2,2), between(1,2))
+        [amount, denominations] << makeRandomTestCases()
+//                makeRandomTestCases(2, between(4,4), between(2,2), between(1,2))
 
     }
 
@@ -26,15 +26,15 @@ class MakingChangeSpec extends Specification {
     def 'makes change - non-random cases'(int amount, int[] denominations) {
 
         expect:
-        MakingChange.makeChange(amount, denominations) ==
+        MakingChange.countWays(amount, denominations) ==
                 bruteForceMakeChange(amount, denominations)
 
         where:
         [amount, denominations] << [
-//                [1, [1]],
-//                [1, [1,2]],
-//                [2, [1,2]],
-//                [3, [1,2]],
+                [1, [1]],
+                [1, [1,2]],
+                [2, [1,2]],
+                [3, [1,2]],
                 [4, [1,2]],
         ]
 
@@ -73,19 +73,19 @@ class MakingChangeSpec extends Specification {
 
     int bruteForceMakeChange(int amount, int[] denominations,
                              int currentDenominationIndex) {
-        println "bruteForceMakeChange " +
-                "$amount $denominations $currentDenominationIndex"
+//        println "bruteForceMakeChange " +
+//                "$amount $denominations $currentDenominationIndex"
         if (amount == 0) return 1
         if (amount < 0) return 0
         if (currentDenominationIndex >= denominations.length) return 0
         int numberOfWays = 0
         int currentAmount = amount
         while (currentAmount >= 0) {
-            println "currentAmount $currentAmount"
+//            println "currentAmount $currentAmount"
             numberOfWays += bruteForceMakeChange(
                     currentAmount, denominations, currentDenominationIndex + 1)
-            println "bruteForceMakeChange " +
-                    "$amount $denominations $currentDenominationIndex"
+//            println "bruteForceMakeChange " +
+//                    "$amount $denominations $currentDenominationIndex"
             currentAmount -= denominations[currentDenominationIndex]
         }
         numberOfWays
