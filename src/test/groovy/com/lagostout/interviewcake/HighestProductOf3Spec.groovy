@@ -9,7 +9,7 @@ import static org.apache.commons.lang3.Range.between
 class HighestProductOf3Spec extends Specification {
 
     @Unroll("#data")
-    def "calculates highest product of 3 from non-random input" (int[] data) {
+    def "calculates highest product of 3 - non-random" (int[] data) {
 
         expect:
         HighestProductOf3.product(data) == bruteForceHighestProduct(data)
@@ -25,7 +25,7 @@ class HighestProductOf3Spec extends Specification {
     }
 
     @Unroll("#data")
-    def "calculates highest product of 3 from random input" (int[] data) {
+    def "calculates highest product of 3 - random" (int[] data) {
 
         expect:
         HighestProductOf3.product(data) == bruteForceHighestProduct(data)
